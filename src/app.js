@@ -1,14 +1,15 @@
 import React from "react";
 import {calculateSum} from "./calculateSum";
-import ResultDisplay from "./resultDisplay";
-import CalculationForm from "./calculationForm";
+import Calculator from "./calculator";
+import DelimiterDisplay from "./delimiterDisplay";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       numbers: '',
-      sum: ''
+      sum: '',
+      delimiters: [',', '\\n']
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,29 +27,18 @@ class App extends React.Component {
 
   render() {
     return (
-      <div style ={wrapperStyle}>
-        <h1 style={titleStyle}>Calculator</h1>
-        <CalculationForm 
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
+      <div>
+        <Calculator 
+          handleChange = {this.handleChange}
+          handleSubmit = {this.handleSubmit}
+          sum = {this.state.sum}
         />
-        <ResultDisplay sum={this.state.sum}/>
+        <DelimiterDisplay 
+          delimiters = {this.state.delimiters}
+        />
       </div>
     )
   }
-};
-
-const titleStyle = { 
-  fontFamily: "Arial, Helvetica, sans-serif",
-  display: "flex",
-  justifyContent: "center"
-};
-
-const wrapperStyle = {
-  outlineStyle: 'solid',
-  width: "40%",
-  paddingLeft: "10px",
-  marginLeft: "10px"
 };
 
 export default App;

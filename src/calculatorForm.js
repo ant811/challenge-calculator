@@ -1,8 +1,8 @@
 import React from 'react';
 
-const calculationForm = (props) => {
+const calculatorForm = (props) => {
   return (
-    <form style ={calculationFormStyle} onSubmit={props.handleSubmit}>
+    <form style ={calculatorFormStyle} onSubmit={props.handleSubmit}>
       <label>
         Enter Numbers:
         <input style ={inputStyle} type="text" onChange={props.handleChange} />
@@ -15,7 +15,7 @@ const calculationForm = (props) => {
   )
 };
 
-const calculationFormStyle = {
+const calculatorFormStyle = {
   fontSize: "1.5em"
 };
 
@@ -32,4 +32,5 @@ const operationsStyle = {
   alignItems: "center"
 };
 
-export default calculationForm;
+export default calculatorForm;
+

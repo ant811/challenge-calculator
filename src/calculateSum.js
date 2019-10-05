@@ -1,5 +1,5 @@
 const calculateSum = (numsString) => {
-  const numbers = numsString.split(",");
+  const numbers = numsString.split(/,|\\n/);
   let sum = numbers.reduce( (counter, number) => {
     if(parseFloat(number)) {
       return counter + parseFloat(number);

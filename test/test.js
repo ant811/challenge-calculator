@@ -34,4 +34,15 @@ describe('Sum Calculations', function() {
       assert.equal(sum2, 500500);
     });
   });
+  describe('Step 3: Support a newline character as an alternative delimiter', function() {
+    it('should support a newline character as an alternative delimiter', function() {
+      let sum1 = calculateSum('5\\n7');
+      assert.equal(sum1, 12);
+      let sum2 = calculateSum('5\\n56,9\\n789,67');
+      assert.equal(sum2, 926);
+      let sum3 = calculateSum('78\\ntryh\\n6');
+      assert.equal(sum3, 84);
+    });
+  });
+
 });

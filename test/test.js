@@ -22,4 +22,16 @@ describe('Sum Calculations', function() {
       assert.equal(sum2, 0);
     });
   });
+  describe('Step 2: Support an unlimited number of numbers', function() {
+    it('should support an unlimited number of numbers', function() {
+      let sum1 = calculateSum('1,2,3,4,5,6,7,8,9,10,11,12');
+      assert.equal(sum1, 78);
+      const zeroThurOneThousand = [];
+      for(let i = 0; i <= 1000; i++) {
+        zeroThurOneThousand.push(i);
+      };
+      let sum2 = calculateSum(zeroThurOneThousand.join(','));
+      assert.equal(sum2, 500500);
+    });
+  });
 });

@@ -4,12 +4,15 @@ import Calculator from "./calculator";
 import DelimiterDisplay from "./delimiterDisplay";
 import ErrorDisplay from "./errorDisplay";
 import {errorCheck} from "./errorCheck";
+import {checkInputDelimiters} from "./checkInputDelimiters";
+import {abstractNumbers} from "./abstractNumbers"
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       numbers: '',
+      input: '',
       sum: '',
       delimiters: [',', '\\n'],
       errorStatement: ''
@@ -17,38 +20,69 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-    
+  
   handleChange(event) {
-    this.setState({numbers: event.target.value});
+    this.setState({input: event.target.value});
   }
-
+ 
   handleSubmit(event) {
     event.preventDefault();
     this.setState({errorStatement: ''});
-    let errorStatement = errorCheck(this.state.numbers);
-    if(errorStatement) {
+
+    let allDelimiters = this.state.delimiters;
+    let inputDelimiters = checkInputDelimiters(this.state.input);
+    if(inputDelimiters && !allDelimiters.includes(inputDelimiters)) {
+      allDelimiters.push(inputDelimiters)
       this.setState({
-        errorStatement: errorStatement,
-        sum: ''
+        delimiters: allDelimiters
+      }, () => {
+        const numbers = abstractNumbers(this.state.input, this.state.delimiters, true);
+        this.setState({
+          numbers: numbers
+        }, () => {
+          let errorStatement = errorCheck(this.state.numbers);
+          if(errorStatement) {
+            this.setState({
+              errorStatement: errorStatement,
+              sum: ''
+            });
+          } else {
+            let sum = calculateSum(this.state.numbers);
+            this.setState({sum});
+          }
+        });
       });
     } else {
-      let sum = calculateSum(this.state.numbers);
-      this.setState({sum});
+      const numbers = abstractNumbers(this.state.input, this.state.delimiters, inputDelimiters ? true : false);
+      this.setState({
+        numbers: numbers
+      }, () => {
+        let errorStatement = errorCheck(this.state.numbers);
+        if(errorStatement) {
+          this.setState({
+            errorStatement: errorStatement,
+            sum: ''
+          });
+        } else {
+          let sum = calculateSum(this.state.numbers);
+          this.setState({sum});
+        }
+      });
     }
   }
 
   render() {
     return (
       <div>
-        <Calculator 
+        <Calculator
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           sum={this.state.sum}
         />
-        <DelimiterDisplay 
+        <DelimiterDisplay
           delimiters={this.state.delimiters}
         />
-        <ErrorDisplay 
+        <ErrorDisplay
           error={this.state.error}
           errorStatement={this.state.errorStatement}
         />
@@ -56,5 +90,5 @@ class App extends React.Component {
     )
   }
 };
-
+ 
 export default App;

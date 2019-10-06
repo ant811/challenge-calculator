@@ -20,7 +20,7 @@ const wrapperStyle = {
   width: "40%",
   paddingLeft: "10px",
   marginLeft: "10px",
-  height: "150px"
+  minHeight: "150px"
 };
 
 const errorStyle = {

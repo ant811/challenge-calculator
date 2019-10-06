@@ -1,5 +1,4 @@
-const errorCheck = (numberStr) => {
-  const numberArr = numberStr.split(/,|\\n/);
+const errorCheck = (numberArr) => {
   try {
     checkForNegativeNumbers(numberArr);
   }

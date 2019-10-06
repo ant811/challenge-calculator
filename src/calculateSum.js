@@ -1,5 +1,4 @@
-const calculateSum = (numbers) => {
-  const numberArr = numbers.split(/,|\\n/);
+const calculateSum = (numberArr) => {
   let sum = numberArr.reduce( (counter, number) => {
     if(parseFloat(number) && parseFloat(number) <= 1000) {
       return counter + parseFloat(number);

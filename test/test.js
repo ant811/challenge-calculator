@@ -1,11 +1,12 @@
-const {calculateSum} = require('../src/calculateSum')
+const {calculateSum} = require('../src/calculateSum');
+const {errorCheck} = require('../src/errorCheck');
 const assert = require('assert');
 
 describe('Sum Calculations', function() {
   describe('Step 1: Support a maximum of 2 numbers using a comma delimiter', function() {
     it('should return 8 when the imput is \'1,7\'', function() {
-      let sum = calculateSum('2,2');
-      assert.equal(sum, 4);
+      let sum = calculateSum('1,7');
+      assert.equal(sum, 8);
     });
     it('should return the input when the input is only one number', function() {
       let sum = calculateSum('30');
@@ -44,5 +45,17 @@ describe('Sum Calculations', function() {
       assert.equal(sum3, 84);
     });
   });
-
+  describe('Step 4: Deny negative numbers. An exception should be thrown that includes all of the negative numbers provided', function() {
+    it('should not throw exception when no negative numbers provided', function() {
+      let errorStatement = errorCheck('1,2,3,4');
+      assert.equal(errorStatement, undefined);
+    });
+    it('should throw exception that includes all of the negative numbers provided', function() {
+      let errorStatement = errorCheck('-1,2,3,-4,5,-6');
+      let containsAllNegative = ['-1','-4','-6'].reduce((found, number) => {
+        return found && errorStatement.includes(number);
+      }, true);
+      assert.equal(containsAllNegative, true);
+    });
+  });
 });

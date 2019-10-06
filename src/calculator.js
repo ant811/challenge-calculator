@@ -1,6 +1,6 @@
 import React from 'react';
 import ResultDisplay from "./resultDisplay";
-import CalculatorForm from "./calculatorForm"
+import CalculatorForm from "./calculatorForm";
 
 const calculator = (props) => {
   return (

@@ -58,4 +58,10 @@ describe('Sum Calculations', function() {
       assert.equal(containsAllNegative, true);
     });
   });
+  describe('Step 5: Ignore any number greater than 1000', function() {
+    it('should ignore any number greater than 1000', function() {
+      let sum = calculateSum('2000\\n5\\n7,1090');
+      assert.equal(sum, 12);
+    });
+  });
 });

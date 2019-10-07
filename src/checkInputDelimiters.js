@@ -5,8 +5,15 @@ const checkInputDelimiters = (inputStr) => {
 };
 
 const newDelimiters = (inputStr) => {
-  let newDelimiter = inputStr[2];
-  return newDelimiter;
+  if(inputStr.indexOf('[') === 2) {
+    let newLineIndex = inputStr.indexOf('n');
+    let newDelimiterInput = inputStr.slice(3, newLineIndex - 2);
+    let newDelimiters = newDelimiterInput.split('][');
+    return newDelimiters;
+  } else {
+    let newDelimiter = inputStr[2];
+    return [newDelimiter];
+  }
 };
 
 module.exports.checkInputDelimiters = checkInputDelimiters;

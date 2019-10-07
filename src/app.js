@@ -30,9 +30,11 @@ class App extends React.Component {
     this.setState({errorStatement: ''});
 
     let allDelimiters = this.state.delimiters;
-    let inputDelimiters = checkInputDelimiters(this.state.input);
-    if(inputDelimiters && !allDelimiters.includes(inputDelimiters)) {
-      allDelimiters.push(inputDelimiters)
+    let inputDelimiters = checkInputDelimiters(this.state.input) || [];
+    let newDelimiters = inputDelimiters.filter((delim)=>!allDelimiters.includes(delim));
+    
+    if(inputDelimiters.length > 0 && newDelimiters.length > 0) {
+      allDelimiters = allDelimiters.concat(newDelimiters);
       this.setState({
         delimiters: allDelimiters
       }, () => {
@@ -53,7 +55,7 @@ class App extends React.Component {
         });
       });
     } else {
-      const numbers = abstractNumbers(this.state.input, this.state.delimiters, inputDelimiters ? true : false);
+      const numbers = abstractNumbers(this.state.input, this.state.delimiters, inputDelimiters.length > 0 ? true : false);
       this.setState({
         numbers: numbers
       }, () => {

@@ -17,7 +17,8 @@ class App extends React.Component {
       sum: '',
       delimiters: [',', '\\n'],
       errorStatement: '',
-      formula: ''
+      formula: '',
+      defaultAltDelimiter: '\\n'
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -85,6 +86,7 @@ class App extends React.Component {
         />
         <DelimiterDisplay
           delimiters={this.state.delimiters}
+          defaultAltDelimiter={this.state.defaultAltDelimiter}
         />
         <ErrorDisplay
           errorStatement={this.state.errorStatement}

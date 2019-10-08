@@ -1,11 +1,12 @@
 import React from "react";
-import {calculateSum} from "./calculateSum";
-import Calculator from "./calculator";
+import CalculatorDislay from "./calculatorDisplay";
 import DelimiterDisplay from "./delimiterDisplay";
 import ErrorDisplay from "./errorDisplay";
-import {errorCheck} from "./errorCheck";
-import {checkInputDelimiters} from "./checkInputDelimiters";
-import {abstractNumbers} from "./abstractNumbers"
+import {abstractNumbers} from "../helpers/abstractNumbers";
+import {calculateSum} from "../helpers/calculateSum";
+import {checkInputDelimiters} from "../helpers/checkInputDelimiters";
+import {errorCheck} from "../helpers/errorCheck";
+import '../style.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -73,7 +74,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Calculator
+        <CalculatorDislay
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           sum={this.state.sum}
@@ -82,7 +83,6 @@ class App extends React.Component {
           delimiters={this.state.delimiters}
         />
         <ErrorDisplay
-          error={this.state.error}
           errorStatement={this.state.errorStatement}
         />
       </div>

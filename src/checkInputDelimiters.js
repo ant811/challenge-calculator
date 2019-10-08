@@ -1,6 +1,8 @@
 const checkInputDelimiters = (inputStr) => {
   if(inputStr[0]==='/' && inputStr[1] === '/') {
     return newDelimiters(inputStr);
+  } else {
+    return [];
   }
 };
 

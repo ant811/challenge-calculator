@@ -99,7 +99,7 @@ describe('Sum Calculations', function() {
       assert.equal(sum3, 173);
     });
   });
-  describe('Step 6: Support 1 custom delimiter of any length using the format: //[{delimiter}]\\n{numbers}', function() {
+  describe('Step 7: Support 1 custom delimiter of any length using the format: //[{delimiter}]\\n{numbers}', function() {
     it('should support 1 custom delimiter of any length', function() {
       let input1 = '//[***]\\n11***22***33';
       let newDelimiter1 = checkInputDelimiters(input1);
@@ -107,12 +107,28 @@ describe('Sum Calculations', function() {
       let numbers1 = abstractNumbers(input1, allDelimiters, true);
       let sum1 = calculateSum(numbers1);
       assert.equal(sum1, 66);
-      let input2 = '//[f&)]\\n11f&)22,33\\n33';
+      let input2 = '//[^f&)]\\n11^f&)22,33\\n33';
       let newDelimiter2 = checkInputDelimiters(input2);
       allDelimiters = allDelimiters.concat(newDelimiter2);
       let numbers2 = abstractNumbers(input2, allDelimiters, true);
       let sum2 = calculateSum(numbers2);
       assert.equal(sum2, 99);
+    });
+  }); 
+  describe('Step 8: Support multiple delimiters of any length using the format: //[{delimiter1}][{delimiter2}]...\\n{numbers}', function() {
+    it('should support multiple delimiters of any length', function() {
+      let input1 = '//[*][!!][r9r]\\n11r9r22*hh*33!!44';
+      let newDelimiter1 = checkInputDelimiters(input1);
+      let allDelimiters = defaultDelimiters.concat(newDelimiter1);
+      let numbers1 = abstractNumbers(input1, allDelimiters, true);
+      let sum1 = calculateSum(numbers1);
+      assert.equal(sum1, 110);
+      let input2 = '//[&yh&)][%$%][^]\\n11&yh&22%$%33\\n33^600';
+      let newDelimiter2 = checkInputDelimiters(input2);
+      allDelimiters = allDelimiters.concat(newDelimiter2);
+      let numbers2 = abstractNumbers(input2, allDelimiters, true);
+      let sum2 = calculateSum(numbers2);
+      assert.equal(sum2, 699);
     });
   }); 
 });

@@ -1,5 +1,5 @@
-const abstractNumbers = (inputString, delimiters, includesInputDelimiters) => {
-  if(includesInputDelimiters) {
+const abstractNumbers = (inputString, delimiters, didUserSubmitDelimiters) => {
+  if(didUserSubmitDelimiters) {
     let newlineIndex = inputString.indexOf('n');
     let newInputStr = inputString.slice(newlineIndex + 1);
     const result = newInputStr.split(new RegExp(`[${delimiters.join('|\\')}]`,'g'));

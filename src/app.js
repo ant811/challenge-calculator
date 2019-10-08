@@ -19,8 +19,35 @@ class App extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.processNumbers = this.processNumbers.bind(this);
+    this.abstractDelimiters = this.abstractDelimiters.bind(this);
   }
   
+  abstractDelimiters() {
+    const currentDelimiters = this.state.delimiters;
+    const userSubmittedDelimiters = checkInputDelimiters(this.state.input);
+    const newDelimiters = userSubmittedDelimiters.filter((delimiter)=>!currentDelimiters.includes(delimiter));
+    return [currentDelimiters, userSubmittedDelimiters, newDelimiters]
+  }
+
+  processNumbers(didUserSubmitDelimiters) {
+    const numbers = abstractNumbers(this.state.input, this.state.delimiters, didUserSubmitDelimiters);
+    this.setState({
+      numbers: numbers
+    }, () => {
+      let errorStatement = errorCheck(this.state.numbers);
+      if(errorStatement) {
+        this.setState({
+          errorStatement: errorStatement,
+          sum: ''
+        });
+      } else {
+        let sum = calculateSum(this.state.numbers);
+        this.setState({sum});
+      }
+    });
+  }
+
   handleChange(event) {
     this.setState({input: event.target.value});
   }
@@ -28,49 +55,19 @@ class App extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({errorStatement: ''});
-
-    let allDelimiters = this.state.delimiters;
-    let inputDelimiters = checkInputDelimiters(this.state.input) || [];
-    let newDelimiters = inputDelimiters.filter((delim)=>!allDelimiters.includes(delim));
     
-    if(inputDelimiters.length > 0 && newDelimiters.length > 0) {
-      allDelimiters = allDelimiters.concat(newDelimiters);
+    let [currentDelimiters, userSubmittedDelimiters, newDelimiters] = this.abstractDelimiters();
+
+    if(userSubmittedDelimiters.length > 0 && newDelimiters.length > 0) {
+      currentDelimiters = currentDelimiters.concat(newDelimiters);
       this.setState({
-        delimiters: allDelimiters
+        delimiters: currentDelimiters
       }, () => {
-        const numbers = abstractNumbers(this.state.input, this.state.delimiters, true);
-        this.setState({
-          numbers: numbers
-        }, () => {
-          let errorStatement = errorCheck(this.state.numbers);
-          if(errorStatement) {
-            this.setState({
-              errorStatement: errorStatement,
-              sum: ''
-            });
-          } else {
-            let sum = calculateSum(this.state.numbers);
-            this.setState({sum});
-          }
-        });
+        this.processNumbers(true);
       });
     } else {
-      const numbers = abstractNumbers(this.state.input, this.state.delimiters, inputDelimiters.length > 0 ? true : false);
-      this.setState({
-        numbers: numbers
-      }, () => {
-        let errorStatement = errorCheck(this.state.numbers);
-        if(errorStatement) {
-          this.setState({
-            errorStatement: errorStatement,
-            sum: ''
-          });
-        } else {
-          let sum = calculateSum(this.state.numbers);
-          this.setState({sum});
-        }
-      });
-    }
+      this.processNumbers(userSubmittedDelimiters.length > 0 ? true : false);
+    };
   }
 
   render() {

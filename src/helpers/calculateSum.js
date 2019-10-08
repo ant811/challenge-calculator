@@ -1,12 +1,14 @@
 const calculateSum = (numberArr) => {
   let sum = numberArr.reduce( (counter, number) => {
-    if(parseFloat(number) && parseFloat(number) <= 1000) {
-      return counter + parseFloat(number);
+    if(number<= 1000) {
+      return counter + number;
     } else {
       return counter;
     }
   }, 0);
-  return sum;
+  let formula = `${numberArr.join('+')} = ${sum}`;
+
+  return [sum, formula];
 };
 
 module.exports.calculateSum = calculateSum;

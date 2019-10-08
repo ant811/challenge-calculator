@@ -10,7 +10,10 @@ const calculatorDisplay = (props) => {
         handleSubmit={props.handleSubmit}
         handleChange={props.handleChange}
       />
-      <ResultDisplay sum={props.sum}/>
+      <ResultDisplay 
+        sum={props.sum}
+        formula={props.formula}
+      />
     </div>
   )
 };

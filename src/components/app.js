@@ -16,7 +16,8 @@ class App extends React.Component {
       input: '',
       sum: '',
       delimiters: [',', '\\n'],
-      errorStatement: ''
+      errorStatement: '',
+      formula: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,11 +41,13 @@ class App extends React.Component {
       if(errorStatement) {
         this.setState({
           errorStatement: errorStatement,
-          sum: ''
+          sum: '',
+          formula: ''
         });
       } else {
-        let sum = calculateSum(this.state.numbers);
-        this.setState({sum});
+        let [sum, formula] = calculateSum(this.state.numbers);
+        this.setState(
+          {sum, formula});
       }
     });
   }
@@ -78,6 +81,7 @@ class App extends React.Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           sum={this.state.sum}
+          formula={this.state.formula}
         />
         <DelimiterDisplay
           delimiters={this.state.delimiters}
